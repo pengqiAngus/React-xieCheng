@@ -4,9 +4,16 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "antd/dist/antd.min.css";
+import "./i18n/configs";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import axios from "axios";
+axios.defaults.headers["x-icode"] = "15AFDBFE5B950916";
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

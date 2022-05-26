@@ -3,14 +3,21 @@ import styles from "./Header.module.css";
 import logo from "../../assets/logo.svg";
 import { Layout, Typography, Input, Menu, Button, Dropdown } from "antd";
 import { GlobalOutlined } from "@ant-design/icons";
-import {
-  useNavigate,
-  useLocation,
-  useParams,
-  useRoutes,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { changeLanguageActionCreator } from "../../redux//language/languageActions";
+import { useDispatch } from "react-redux";
+import { useSelector } from "../../redux/hooks";
 export const Header: React.FC = () => {
   const navigate = useNavigate();
+  const language = useSelector((state) => state.language.language);
+  const languageList = useSelector((state) => state.language.languageList);
+
+  const dispatch = useDispatch();
+  const LanguageChange = (e) => {
+    const action = changeLanguageActionCreator(e.key);
+    dispatch(action);
+  };
+
   return (
     <div className={styles["app-header"]}>
       {/* top-header */}
@@ -20,14 +27,15 @@ export const Header: React.FC = () => {
           <Dropdown.Button
             style={{ marginLeft: 15 }}
             overlay={
-              <Menu>
-                <Menu.Item>中文</Menu.Item>
-                <Menu.Item>English</Menu.Item>
+              <Menu onClick={LanguageChange}>
+                {languageList.map((l) => (
+                  <Menu.Item key={l.code}>{l.name}</Menu.Item>
+                ))}
               </Menu>
             }
             icon={<GlobalOutlined />}
           >
-            语言
+            {language === "zh" ? "中文" : "English"}
           </Dropdown.Button>
           <Button.Group className={styles["button-group"]}>
             <Button onClick={() => navigate("/signUp")}>注册</Button>
