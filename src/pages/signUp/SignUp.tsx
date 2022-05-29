@@ -1,5 +1,10 @@
 import React from "react";
-
+import { UserLayout } from "../../layouts";
+import { SignUpForm } from "./signUpForm";
 export const SignUp: React.FC = () => {
-  return <h1>登录页面</h1>;
+  return (
+    <UserLayout>
+      <SignUpForm />
+    </UserLayout>
+  );
 };

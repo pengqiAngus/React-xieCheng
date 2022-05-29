@@ -1,6 +1,10 @@
 import React from "react";
-
+import { UserLayout } from "../../layouts";
+import { LogInForm } from "./LogInForm";
 export const LogIn: React.FC = (props) => {
-  console.log(props);
-  return <h1>登录页面</h1>;
+  return (
+    <UserLayout>
+      <LogInForm />
+    </UserLayout>
+  );
 };
